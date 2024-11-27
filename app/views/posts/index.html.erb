@@ -1,0 +1,21 @@
+<h1> POSTS </h1>
+<% if user_signed_in?%>
+<h3> Welcome <%= current_user.username %> </h3>
+<% end %>
+<% @posts.each do |post| %>
+<div class="post">
+  <h2><%= post.title %></h2>
+  <p><%= post.body %></p>
+  <% if user_signed_in?%>
+  <p><small>By: <%= post.user.username %></small></p>
+  <% end %>
+</div>
+<% end %>
+
+<% if user_signed_in? %>
+<%= link_to "New Post", new_post_path %>
+<%= button_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'danger'%>
+<% else %>
+<%= button_to 'Sign In', new_user_session_path, class: 'success'%>
+<%= button_to 'Sign Up', new_user_registration_path, class: 'success'%>
+<% end %>
