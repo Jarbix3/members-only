@@ -1,23 +1,27 @@
+<body>
 <h1> TODOS LOS CUENTOS DE LA HISTORIA </h1>
 <% if user_signed_in?%>
 <h3> Welcome <%= current_user.username %> </h3>
 
 <% end %>
 
-<% @posts.each do |post| %>
+<div class="post-container"><% @posts.each do |post| %>
 <br>
 <div class="post">
   <h2><%= link_to post.title, post %></h2>
-  
+  <p class="body"><%= post.body %></p>
+  <div class="post-info">
   <% if user_signed_in?%>
   <p><small>LO ESCRIBIO: <%= post.user.username %></small></p>
   <% end %>
   <p><small>EL DIA: <%= post.created_at.strftime("%B %d, %Y %H:%M") %></small></p>
+  </div>
 </div>
 <br>
 <% end %>
+</div>
 
-
+<div class="bottom-buttons">
 <% if user_signed_in? %>
 <%= link_to "NUEVO CUENTO", new_post_path %>
 <%= button_to 'TOMARSELAS', destroy_user_session_path, method: :delete, class: 'danger'%>
@@ -25,3 +29,5 @@
 <%= link_to 'CONECTATE', new_user_session_path, class: 'success'%> <br><br>
 <%= link_to 'SI SOS NUEVO HACE CLICK', new_user_registration_path, class: 'success'%>
 <% end %>
+</div>
+</body>

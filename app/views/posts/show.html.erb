@@ -1,10 +1,13 @@
 <header><%= link_to 'DE VUELTA A LOS POST',posts_path %></header>
-<h2><%= @post.title %></h2>
-<p><%= @post.body%></p>
+<div class="show-post-container">
+<h2 class="post-title"><%= @post.title %></h2>
+<p class="post-body"><%= @post.body%></p>
 <% if user_signed_in? %>
-<p><small> <%= @post.user.username%></small></p>
+<p class="post-creator"><small> <%= @post.user.username%></small></p>
 <% if current_user == @post.user%>
 <%= link_to 'EDITA EL POST', edit_post_path(@post), class: 'button'%>
 <%= button_to 'BORRA', post_path(@post),method: :delete, onclick: "return confirm('SEGURO Q QERE BORRAR?');" , class: 'button danger'%>
 <%end%>
 <%end%>
+<p class="post-date"><small> <%= @post.created_at.strftime("%B %d, %Y %H:%M") %></small></p>
+<div></div>
