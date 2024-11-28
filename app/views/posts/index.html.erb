@@ -1,21 +1,27 @@
-<h1> POSTS </h1>
+<h1> TODOS LOS CUENTOS DE LA HISTORIA </h1>
 <% if user_signed_in?%>
 <h3> Welcome <%= current_user.username %> </h3>
-<% end %>
-<% @posts.each do |post| %>
-<div class="post">
-  <h2><%= post.title %></h2>
-  <p><%= post.body %></p>
-  <% if user_signed_in?%>
-  <p><small>By: <%= post.user.username %></small></p>
-  <% end %>
-</div>
+
 <% end %>
 
+<% @posts.each do |post| %>
+<br>
+<div class="post">
+  <h2><%= link_to post.title, post %></h2>
+  
+  <% if user_signed_in?%>
+  <p><small>LO ESCRIBIO: <%= post.user.username %></small></p>
+  <% end %>
+  <p><small>EL DIA: <%= post.created_at.strftime("%B %d, %Y %H:%M") %></small></p>
+</div>
+<br>
+<% end %>
+
+
 <% if user_signed_in? %>
-<%= link_to "New Post", new_post_path %>
-<%= button_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'danger'%>
+<%= link_to "NUEVO CUENTO", new_post_path %>
+<%= button_to 'TOMARSELAS', destroy_user_session_path, method: :delete, class: 'danger'%>
 <% else %>
-<%= button_to 'Sign In', new_user_session_path, class: 'success'%>
-<%= button_to 'Sign Up', new_user_registration_path, class: 'success'%>
+<%= link_to 'CONECTATE', new_user_session_path, class: 'success'%> <br><br>
+<%= link_to 'SI SOS NUEVO HACE CLICK', new_user_registration_path, class: 'success'%>
 <% end %>

@@ -9,7 +9,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    @popsts = Post.all.order("created_at DESC")
+    @posts = Post.all.order("created_at DESC")
     @users = User.all
   end
 
@@ -21,11 +21,11 @@ class PostsController < ApplicationController
     @post = current_user.posts.build(post_params)
     respond_to do |format|
       if @post.save
-        format.html { redirect_to root_path, notice: "Post was successfully created." }
+        format.html { redirect_to root_path, notice: "Se creo el post." }
       else
         @posts = Post.all
-        flash[:alert] = @post.errors.count
-        format.html { render :index, alert: "Post was not created." }
+
+        format.html { render :index }
       end
     end
   end
@@ -38,21 +38,18 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
-        format.html { redirect_to root_path, notice: "Post was successfully updated." }
-        format.json { render :show, status: :ok, location: @post }
+        format.html { redirect_to root_path, notice: "SE EDITO BIEN EL POST" }
+
       else
         format.html { render :edit }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
+
       end
     end
   end
 
   def destroy
     @post.destroy
-    respond_to do |format|
-      format.html { redirect_to posts_url, notice: "Post was succesfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to posts_path, notice: "BORRASTE EL CUENTO"
   end
 
   private
